@@ -1,10 +1,11 @@
 package fr.ehn.spotifycloneback.usercontext.domain;
 
+import fr.ehn.spotifycloneback.sharedkernel.domain.AbstractAuditingEntity;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "spotify_user")
-public class User {
+public class User extends AbstractAuditingEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="userSequenceGenerator")
@@ -26,7 +27,7 @@ public class User {
     @Column(name = "image_url")
     private String imageUrl;
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 
