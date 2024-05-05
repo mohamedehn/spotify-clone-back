@@ -32,7 +32,7 @@ public abstract class AbstractAuditingEntity<T> implements Serializable {
         this.createdDate = createdDate;
     }
 
-    private Instant getLastModifiedDate() {
+    public Instant getLastModifiedDate() {
         return lastModifiedDate;
     }
 

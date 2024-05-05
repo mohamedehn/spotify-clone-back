@@ -31,47 +31,47 @@ public class User extends AbstractAuditingEntity<Long> {
         return id;
     }
 
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    private String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    private void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    private String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    private void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    private String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    private void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    private Subscription getSubscription() {
+    public Subscription getSubscription() {
         return subscription;
     }
 
-    private void setSubscription(Subscription subscription) {
+    public void setSubscription(Subscription subscription) {
         this.subscription = subscription;
     }
 
-    private String getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    private void setImageUrl(String imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
