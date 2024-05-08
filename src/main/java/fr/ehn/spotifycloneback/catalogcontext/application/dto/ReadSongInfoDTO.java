@@ -1,4 +1,4 @@
-package fr.ehn.spotifycloneback.catalogcontext.application.vo.dto;
+package fr.ehn.spotifycloneback.catalogcontext.application.dto;
 
 import fr.ehn.spotifycloneback.catalogcontext.application.vo.SongAuthorVO;
 import fr.ehn.spotifycloneback.catalogcontext.application.vo.SongTitleVO;

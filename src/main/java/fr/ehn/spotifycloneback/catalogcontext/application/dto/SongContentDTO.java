@@ -1,4 +1,4 @@
-package fr.ehn.spotifycloneback.catalogcontext.application.vo.dto;
+package fr.ehn.spotifycloneback.catalogcontext.application.dto;
 
 import jakarta.persistence.Lob;
 
