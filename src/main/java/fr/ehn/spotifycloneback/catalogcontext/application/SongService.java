@@ -2,6 +2,7 @@ package fr.ehn.spotifycloneback.catalogcontext.application;
 
 import fr.ehn.spotifycloneback.catalogcontext.application.dto.ReadSongInfoDTO;
 import fr.ehn.spotifycloneback.catalogcontext.application.dto.SaveSongDTO;
+import fr.ehn.spotifycloneback.catalogcontext.application.dto.SongContentDTO;
 import fr.ehn.spotifycloneback.catalogcontext.application.mapper.SongContentMapper;
 import fr.ehn.spotifycloneback.catalogcontext.application.mapper.SongMapper;
 import fr.ehn.spotifycloneback.catalogcontext.domain.Song;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -49,5 +52,10 @@ public class SongService {
                 .stream()
                 .map(songMapper::songToReadSongInfoDTO)
                 .toList();
+    }
+
+    public Optional<SongContentDTO> getOneByPublicId(UUID publicId) {
+        Optional<SongContent> songPublicById = songContentRepository.findOneBySongPublicId(publicId);
+        return songPublicById.map(songContentMapper::songContentToSongContentDTO);
     }
 }
