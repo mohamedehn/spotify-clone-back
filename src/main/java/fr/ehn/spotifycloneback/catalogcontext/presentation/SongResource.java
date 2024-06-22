@@ -3,12 +3,17 @@ package fr.ehn.spotifycloneback.catalogcontext.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.ehn.spotifycloneback.catalogcontext.application.SongService;
+import fr.ehn.spotifycloneback.catalogcontext.application.dto.FavoriteSongDTO;
 import fr.ehn.spotifycloneback.catalogcontext.application.dto.ReadSongInfoDTO;
 import fr.ehn.spotifycloneback.catalogcontext.application.dto.SaveSongDTO;
 import fr.ehn.spotifycloneback.catalogcontext.application.dto.SongContentDTO;
 import fr.ehn.spotifycloneback.catalogcontext.domain.SongContent;
+import fr.ehn.spotifycloneback.infrastructure.service.dto.State;
+import fr.ehn.spotifycloneback.infrastructure.service.dto.StatusNotification;
+import fr.ehn.spotifycloneback.usercontext.ReadUserDTO;
 import fr.ehn.spotifycloneback.usercontext.application.UserService;
 import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -77,4 +82,27 @@ public class SongResource {
                  .orElseGet(() -> ResponseEntity.of(ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Song not found.")).build());
     }
 
+    @GetMapping(value = "/songs/search")
+    public ResponseEntity<List<ReadSongInfoDTO>> search(@RequestParam String term) {
+        return ResponseEntity.ok(songService.search(term));
+    }
+
+    @PostMapping("/songs/like")
+    public ResponseEntity<FavoriteSongDTO> addOrRemoveFromFavorite(@Valid @RequestBody FavoriteSongDTO favoriteSongDTO) {
+        ReadUserDTO userFromAuthentication = userService.getAuthenticatedUserFromSecurityContext();
+        State<FavoriteSongDTO, String> favoriteSongResponse = songService.addOrRemoveFromFavorite(favoriteSongDTO, userFromAuthentication.email());
+
+        if(favoriteSongResponse.getStatus().equals(StatusNotification.ERROR)) {
+            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, favoriteSongResponse.getError());
+            return ResponseEntity.of(problemDetail).build();
+        } else {
+            return ResponseEntity.ok(favoriteSongResponse.getValue());
+        }
+    }
+
+    @GetMapping("/songs/like")
+    public ResponseEntity<List<ReadSongInfoDTO>> fetchFavoriteSongs() {
+        ReadUserDTO userFromAuthentication = userService.getAuthenticatedUserFromSecurityContext();
+        return ResponseEntity.ok(songService.fetchFavoriteSongs(userFromAuthentication.email()));
+    }
 }

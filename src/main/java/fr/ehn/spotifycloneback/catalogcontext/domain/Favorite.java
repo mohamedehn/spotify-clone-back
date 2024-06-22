@@ -21,4 +21,16 @@ public class Favorite implements Serializable {
         return songPublicId;
     }
 
+    public void setSongPublicId(UUID songPublicId) {
+        this.songPublicId = songPublicId;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
 }
