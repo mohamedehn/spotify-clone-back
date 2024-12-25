@@ -11,7 +11,7 @@ spring:
     name: spotify-clone
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://${postgres_url}:5432/${postgres_db}
+    url: jdbc:postgresql://${postgres_url}:5432/${postgres_db}?sslmode=require
     username: ${postgres_username}
     password: ${postgres_password}
     hikari:
@@ -32,7 +32,7 @@ spring:
     contexts: dev
     change-log: classpath:db/changelog/master.xml
     default-schema: spotify_clone
-    enabled: true
+    enabled: false
   #    drop-first: true
   servlet:
     multipart:
