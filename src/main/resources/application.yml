@@ -28,6 +28,7 @@ spring:
     properties:
       hibernate:
         default_schema: spotify_clone
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     contexts: dev
     change-log: classpath:db/changelog/master.xml
